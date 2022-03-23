@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Entrada;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Entrada;
 use App\Producto;
 use App\Entradaproducto;
 use APP\Providers\Auth;
@@ -133,5 +134,88 @@ class EntradaController extends Controller
     public function destroy(Entrada $entrada)
     {
         //
+    }
+    public function reportepdf($id) 
+    {
+        
+        $entradaproductos = DB::table('entradaproductos')
+        ->select('entradaproductos.id','entradaproductos.id_entrada','entradaproductos.id_producto','entradaproductos.costo_unitario','entradaproductos.cantidad','entradaproductos.id_usuario','productos.nombre_producto')
+        ->leftJoin('productos', 'entradaproductos.id_producto', '=', 'productos.id')
+        ->where('entradaproductos.id_entrada',$id)
+        //->where('entradaproductos.id_sucursal',session('sessionsucursal'))
+        ->get();
+
+        $entrada    = DB::table('entradas')
+        ->select('entradas.id','entradas.fecha','entradas.nfactura','entradas.id_sucursal','entradas.concepto','entradas.id_proveedor','entradas.observacion')
+        //->leftJoin('proveedors', 'entradas.id_proveedor', '=', 'proveedors.id')
+        //->leftJoin('sucursals', 'entradas.id_sucursal', '=', 'sucursals.id')
+        //->leftJoin('almacens', 'entradas.id_almacen', '=', 'almacens.id')
+        ->where('entradas.id',$id)
+        //->where('entradas.id_sucursal',session('sessionsucursal'))
+        ->first();
+//        $entradaproductos = Entradaproducto::where("id_entrada","=",$id)->get();;
+        $data       = $this->getData();
+        $date       = date('Y-m-d');
+        $invoice    = "2222";
+        $view       =  \View::make('entradas.reportePDF', compact('entrada','entradaproductos','data', 'date', 'invoice'))->render();
+        $pdf        = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('invoice');
+    }
+    public function getData() 
+    {
+        $data =  [
+            'quantity'      => '1' ,
+            'description'   => 'some ramdom text',
+            'price'   => '500',
+            'total'     => '500'
+        ];
+        return $data;
+    }
+    public function reporte(Request $request){
+         return view("entradas.reporte");
+    }
+    public function reportepdffecha(Request $request, $fecha1, $fecha2) 
+    {
+        if ($request->ajax()) {
+             return datatables()->of(DB::table('entradas')
+             ->select('id','fecha','nfactura','concepto','observacion','status')
+             ->where('entradas.fecha','>=',$fecha1)
+             ->where('entradas.fecha','<=',$fecha2)
+            // ->where('entradas.id_sucursal',session('sessionsucursal'))
+             ->get())
+             ->addColumn('action', function($data){
+                 $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" id="btn-reporte" name="btn-reporte" data-original-title="Reporte" class="btn btn-success btn-sm deleteItem">PDF</a>';
+                 return $btn;
+ 
+             })
+             ->rawColumns(['action'])
+             ->make(true);
+        }
+        $entradaproductos = DB::table('entradaproductos')
+        ->select('entradaproductos.id','entradaproductos.id_entrada','entradaproductos.id_producto','entradaproductos.costo_unitario','entradaproductos.cantidad','entradaproductos.id_usuario','productos.nombre_producto')
+        ->leftJoin('entradas', 'entradaproductos.id_entrada', '=', 'entradas.id')
+        ->leftJoin('productos', 'entradaproductos.id_producto', '=', 'productos.id')
+        ->where('entradas.fecha','>=',$fecha1)
+        ->where('entradas.fecha','<=',$fecha2)
+        //->where('entradas.id_sucursal',session('sessionsucursal'))
+        ->get();
+
+        $entradas    = DB::table('entradas')
+        ->select('entradas.id','entradas.fecha','entradas.nfactura','entradas.concepto','entradas.observacion')
+        ->where('entradas.fecha','>=',$fecha1)
+        ->where('entradas.fecha','<=',$fecha2)
+        //->where('entradas.id_sucursal',session('sessionsucursal'))
+        ->get();
+
+       // return $entradaproductos;
+//        $entradaproductos = Entradaproducto::where("id_entrada","=",$id)->get();;
+        $data       = $this->getData();
+        $date       = date('Y-m-d');
+        $invoice    = "2222";
+        $view       =  \View::make('entradas.reportepdffecha', compact('entradas','data', 'date', 'invoice','entradaproductos'))->render();
+        $pdf        = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('reportepdffecha');
     }
 }

@@ -1,6 +1,6 @@
 @extends("layout.plantilla")
 
-@section("contenidoprincipal")
+@section("content")
  <!-- SELECT2 EXAMPLE -->
 <!-- SELECT2 EXAMPLE -->
 <div class="box box-default">
@@ -162,7 +162,7 @@
     $('body').on('click', '#btn-reportePDF', function () {
         fecha1      = $('#fecha1').val();
         fecha2      = $('#fecha2').val();
-        window.open('https://venta.strongersureste.com/entradas/reportepdffecha/'+fecha1+'/'+fecha2, '_blank');   
+        window.open('/entradas/reportepdffecha/'+fecha1+'/'+fecha2, '_blank');   
     }); 
 
     $('body').on('click', '#btn-buscar', function () {
@@ -179,7 +179,7 @@
     }); 
     $('body').on('click', '#btn-reporte', function () {
       var id_entrada = $(this).data("id");          
-      window.open('https://venta.strongersureste.com/entradas/pdf/'+id_entrada, '_blank');
+      window.open('/entradas/reportepdf/'+id_entrada, '_blank');
     }); 
 </script>
       <!-- /.box -->

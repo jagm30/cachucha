@@ -123,9 +123,19 @@
             <a href="/productos">
                 <i class="fa fa-th"></i> <span>Productos</span>
                 <span class="pull-right-container">
-                <small class="label pull-right bg-green">new</small>
                 </span>
             </a>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-table"></i> <span>Entradas</span>
+                <span class="pull-right-container">
+                <small class="label pull-right bg-green">Nuevo</small>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="/entradas"><i class="fa fa-circle-o"></i> Nuevoregistro</a></li>
+                 <li><a href="{{ url('/entradas/reporte') }}"><i class="fa fa-circle-o"></i>Reporte de entradas</a></li>
+              </ul>
             </li>
             <li>
                 <a href="/home">

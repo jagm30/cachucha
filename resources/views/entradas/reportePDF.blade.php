@@ -2,7 +2,9 @@
 <html lang="es">
   <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <title>Reporte de Entrada de productos</title>
+  <title>Example 2</title>
+  
+  
 <style>
       .clearfix:after {
   content: "";
@@ -185,61 +187,46 @@ footer {
 </head>
   <body>
   <div id="watermark">
-   <!-- <img src="{{ public_path().'/images/formato.jpg' }}" width="100%" height="100%">-->
+   
   </div>
     <main>
-    @foreach($entradas as $entrada)
-      <p style="font:10pt; font-family: sans-serif ; position: fixed; left: 160mm; top:45mm; right: 0px; height: 300px;  color:black;">{{ $entrada->id }}</p>
-      <p style="font:10pt; font-family: sans-serif ; position: fixed; left: 60mm; top:55mm; right: 0px; height: 300px;  color:black;">{{ $entrada->fecha }}</p>      
-      <p style="font:10pt; font-family: sans-serif ; position: fixed; left: 140mm; top:65mm; right: 0px; height: 300px;  color:black;">{{ $entrada->nfactura }}</p>
-      <p style="font:10pt; font-family: sans-serif ; position: fixed; left: 45mm; top:73mm; right: 0px; height: 300px;  color:black;">{{ $entrada->concepto }}</p>
-      <p style="font:10pt; font-family: sans-serif ; position: fixed; left: 55mm; top:97mm; right: 0px; height: 300px;  color:black;">{{ $entrada->observacion }}</p>
-
-      <table border="0" cellspacing="0" cellpadding="0"  style="width:90%; font:8pt; font-family: sans-serif ; left:10mm;  top:115mm;  color:black;">
+      <p style="font:12pt; font-family: sans-serif ; position: fixed; left: 100mm; top:20mm; right: 0px; height: 300px;  color:black;"><b>ALMACÉN</b></p>
+      <p style="font:10pt; font-family: sans-serif ; position: fixed; left: 160mm; top:30mm; right: 0px; height: 300px;  color:black;"><b>No. de entrada:</b>{{ $entrada->id }}</p>
+      <p style="font:10pt; font-family: sans-serif ; position: fixed; left: 20mm; top:35mm; right: 0px; height: 300px;  color:black;"><b>Fecha: </b>{{ $entrada->fecha }}</p>
+      <p style="font:10pt; font-family: sans-serif ; position: fixed; left: 20mm; top:40mm; right: 0px; height: 300px;  color:black;"><b>Proveedor: </b>{{ $entrada->id_proveedor }}</p>
+      <p style="font:10pt; font-family: sans-serif ; position: fixed; left: 140mm; top:40mm; right: 0px; height: 300px;  color:black;"><b>No de Factura: </b>{{ $entrada->nfactura }}</p>
+      <p style="font:10pt; font-family: sans-serif ; position: fixed; left: 20mm; top:45mm; right: 0px; height: 300px;  color:black;"><b>Concepto: </b>{{ $entrada->concepto }}</p>
+      
+      <p style="font:10pt; font-family: sans-serif ; position: fixed; left: 20mm; top:60mm; right: 0px; height: 300px;  color:black;"><b>Observaciones: </b>{{ $entrada->observacion }}</p>
+      <br><br><br><br><br><br><br><br><br><br>
+      <table border="0" cellspacing="0" cellpadding="0" class="table table-sm"  style="width:90%; font:8pt; font-family: sans-serif ;  left:10mm;  top:auto;  color:black;">
         <thead>
           <tr>
-            <th class="no" style="width:5%;">ID</th>
+            <th class="no" style="width:10%;">ID</th>
             <th class="desc" style="width:30%;">Producto</th>
-            <th class="desc" style="width:10%;">Cantidad</th>
-            <th class="unit" style="width:15%;">Precio unitario</th>
-            <th class="unit" style="width:15%;">Immporte</th>
+            <th class="cant" style="width:5%;">Cantidad</th>
+            <th class="unit" style="width:10%;">Precio unitario</th>
           </tr>
         </thead>
         <tbody>
-          {{$total_productos = 0}}
-          {{$total_factura=0}}
-          {{$subtotal = 0}}
           @foreach($entradaproductos as $productos)
-            @if($productos->id_entrada == $entrada->id)
             <tr>
-              <td class="no">{{ $entrada->id }}</td>
+              <td class="no">{{ $productos->id_producto }}</td>
               <td class="desc">{{ $productos->nombre_producto }}</td>
-              <td class="unit">{{ $productos->cantidad }}</td>
-              <td class="unit">$ {{ number_format($productos->costo_unitario,2) }}</td>
-              <td class="unit">$ {{ number_format($productos->costo_unitario*$productos->cantidad,2) }}</td>
+              <td class="cant">{{ $productos->cantidad }}</td>
+              <td class="unit">{{ $productos->costo_unitario }}</td>
             </tr>
-              {{$total_productos  = $total_productos + $productos->cantidad}}
-              {{$total_factura    = $total_factura + $productos->costo_unitario}}
-              {{$subtotal         = $subtotal + $productos->costo_unitario*$productos->cantidad}}
-            @endif            
           @endforeach          
-            <tr>
-              <td></td>
-              <td class="desc"><b>TOTALES: </b></td>
-              <td class="unit"><b>{{$total_productos}}</b></td>
-              <td class="unit"><b>$ {{number_format($total_factura,2)}}</b></td>
-              <td class="unit"><b>$ {{number_format($subtotal,2)}}</b></td>
-            </tr>
         </tbody>
 
       </table>
-        @if($loop->last)
-        @else  
-        <div class="page-break"></div>
-        @endif
-      
-    @endforeach
     </main>
-   <!-- -->
+   <!-- <div class="page-break"></div>-->
+   <script type="text/php">
+    if ( isset($pdf) ) {
+        //$font = Font_Metrics::get_font("helvetica", "bold");
+        $pdf->page_text(500, 800, "Página: {PAGE_NUM} de {PAGE_COUNT}", "arial", 8, array(0,0,0));
+    }
+</script>
   </body>
 </html>

@@ -38,7 +38,7 @@
           <!-- /.form-group -->
           <div class="form-group">
             <label for="exampleInputEmail1">Proveedor</label>                
-            <input type="text" name="id_proveedor" id="id_proveedor" class="form-control" required>
+            <input type="text" name="id_proveedor" id="id_proveedor" class="form-control" readonly value="1">
           </div> 
           <!-- /.form-group -->
 

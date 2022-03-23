@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Entradaproducto;
+use App\Entrada;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EntradaproductoController extends Controller
 {
@@ -82,8 +84,28 @@ class EntradaproductoController extends Controller
      * @param  \App\Entradaproducto  $entradaproducto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Entradaproducto $entradaproducto)
+    public function destroy($id)
     {
         //
+        $entradaproducto = Entradaproducto::findOrFail($id);
+        $entrada = Entrada::findOrFail($entradaproducto->id_entrada);    
+        if($entrada->status=='finalizado'){
+            $mensaje = 'La factura esta finalizada';
+        }else{
+            $entradaproducto->delete();
+            $mensaje = 'Eliminado correctamente';
+        }
+       
+        return Response()->json(['mensaje'=>$mensaje]);
+    }
+    public function finalizar(Request $request, $id){
+        $entrada = Entrada::find($id);
+        $entrada->status = 'finalizado';
+        $entrada->save();
+
+        DB::table('entradaproductos')->where('id_entrada',$id)->update(['status' => 'finalizado']);
+       
+        $mensaje = 'finalizado correctamente . . .';
+        return Response()->json(['mensaje'=>$mensaje]);
     }
 }

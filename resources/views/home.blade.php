@@ -56,7 +56,7 @@
         <div class="icon">
           <i class="ion ion-pie-graph"></i>
         </div>
-        <a href="#" class="small-box-footer">más información <i class="fa fa-arrow-circle-right"></i></a>
+        <a href="/entradas" class="small-box-footer">más información <i class="fa fa-arrow-circle-right"></i></a>
       </div>
     </div>
     <!-- ./col -->

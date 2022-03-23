@@ -23,5 +23,10 @@ Route::get('productos/descargarExcel', 'ProductoController@descargarExcel')->nam
 Route::post('productos/edicion', 'ProductoController@edicion')->name('edicion');
 Route::resource('productos', 'ProductoController');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('entradasproductos/finalizar/{id}', 'EntradaproductoController@finalizar')->name('finalizar');
+Route::get('entradasproductos/delete/{id}', 'EntradaproductoController@destroy')->name('delete');
 Route::resource('entradasproductos', 'EntradaproductoController');
+Route::get('entradas/reportepdffecha/{fecha1}/{fecha2}', 'EntradaController@reportepdffecha');
+Route::get('entradas/reportepdf/{id}', 'EntradaController@reportepdf');
+Route::get('entradas/reporte/', 'EntradaController@reporte');
 Route::resource('entradas', 'EntradaController');

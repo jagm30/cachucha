@@ -141,7 +141,7 @@
               <div class="col-md-6">              
                 <!-- /.form-group -->
                 <div class="form-group">
-                  <input type="text" class="form-control" name="id_sucursal" id="id_sucursal" value="1">
+                  <input type="hidden" class="form-control" name="id_sucursal" id="id_sucursal" value="1">
                     <label for="exampleInputEmail1">Cantidad</label>
                     <input type="text" class="form-control" id="cantidad" name="cantidad"  placeholder="Ingresa la Cantidad">
                 </div>
@@ -243,7 +243,7 @@
       var id_sucursal     = $('#id_sucursal').val();
       var id_usuario      = <?php echo auth()->id();?>;
 
-      alert(id_usuario);
+      //alert(id_usuario);
       //   $("#butsave").attr("disabled", "disabled");
         $.ajax({
             url: "/entradasproductos",
@@ -302,7 +302,7 @@
 //pdf reporte
     $('body').on('click', '#btn-pdf', function () {
       var id_entrada = $(this).data("id");          
-      window.open('https://venta.strongersureste.com/entradas/pdf/'+id_entrada, '_blank');          
+      window.open('/entradas/reportepdf/'+id_entrada, '_blank');          
     }); 
     //cargar precio de producto
     
