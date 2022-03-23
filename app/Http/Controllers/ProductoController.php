@@ -135,7 +135,7 @@ class ProductoController extends Controller
             $producto = Producto::find($id);
             $producto->nombre_producto  = $request['nombre_producto-e'];
             $producto->codigo_barras    = $request['codigo_barras-e'];
-            $producto->unidad_medida    = 'pieza';
+            $producto->unidad_medida    = $request['unidad_medida-e'];
             $producto->precio_costo     = $request['precio_costo-e'];
             $producto->precio_venta     = $request['precio_venta-e'];
             $producto->precio_mayoreo   = $request['precio_mayoreo-e'];
@@ -158,9 +158,11 @@ class ProductoController extends Controller
         $pdf = \PDF::loadView('vista-pdf', $data);
     
         return $pdf->download('archivo.pdf');
-*/
+*/      
+        $productos = Producto::all();
         $invoice    = "2222";
-        $view       =  \View::make('productos.descargaPDF')->render();
+        $view       =  \View::make('productos.descargaPDF', compact('productos'))->render();
+        //$view       =  \View::make('ventas.pdf', compact('venta','ventaarticulos', 'date', 'invoice','abonos','folio'))->render();
         $pdf        = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         //$pdf->setPaper('A4', 'landscape');
@@ -169,6 +171,6 @@ class ProductoController extends Controller
 
     }
     public function descargarExcel(){
-        return Excel::download(new ProductoExport, 'users.xlsx');
+        return Excel::download(new ProductoExport, 'productos.xlsx');
     }
 }

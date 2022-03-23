@@ -19,16 +19,18 @@
             <div class="col-md-4">
               <div class="form-group">
                   <label for="exampleInputEmail1">Codigo de Producto</label>
-                  <input type="text" class="form-control" id="codigo_barras" name="codigo_barras" placeholder="Ingresa el codigo de producto">
+                  <input type="text" required class="form-control" id="codigo_barras" name="codigo_barras" placeholder="Ingresa el codigo de producto">
               </div>
               <div class="form-group">
                   <label for="exampleInputEmail1">Nombre del producto</label>
-                  <input type="text" class="form-control" id="nombre_producto" name="nombre_producto" placeholder="Ingresa el Nombre del producto">
+                  <input type="text" required class="form-control" id="nombre_producto" name="nombre_producto" placeholder="Ingresa el Nombre del producto">
               </div>
-              <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-4">   
               <div class="form-group">
                 <label>Unidad de medida</label>
-                <select class="form-control select2"  style="width: 100%;" id="unidad_medida" name="unidad_medida">
+                <select class="form-control select2"  style="width: 100%;" id="unidad_medida" name="unidad_medida" required>
                   <option selected="selected">Pieza</option>
                   <option>Rollo</option>
                   <option>Litros</option>
@@ -40,43 +42,26 @@
                   <option>Multiusos</option>
 
                 </select>
-              </div>
-              <!-- /.form-group -->
-            </div>
-            <!-- /.col -->
-            <div class="col-md-4">              
+              </div>           
               <!-- /.form-group -->
               <div class="form-group">
                   <label for="exampleInputEmail1">Precio costo</label>
-                  <input type="text" class="form-control" id="precio_costo" name="precio_costo" placeholder="Ingresa el Precio costo">
+                  <input type="text" required class="form-control" id="precio_costo" name="precio_costo" placeholder="Ingresa el Precio costo">
               </div>
+            </div>
+            <div class="col-md-4">                            
               <!-- /.form-group -->
               <!-- /.form-group -->
               <div class="form-group">
                   <label for="exampleInputEmail1">Precio venta</label>
-                  <input type="text" class="form-control" id="precio_venta" name="precio_venta" placeholder="Ingresa el Precio venta">
+                  <input type="text" required class="form-control" id="precio_venta" name="precio_venta" placeholder="Ingresa el Precio venta">
               </div>
               <!-- /.form-group -->
               <!-- /.form-group -->
               <div class="form-group">
                   <label for="exampleInputEmail1">Precio mayoreo</label>
-                  <input type="text" class="form-control" id="precio_mayoreo" name="precio_mayoreo" placeholder="Ingresa el Precio mayoreo">
+                  <input type="text" required class="form-control" id="precio_mayoreo" name="precio_mayoreo" placeholder="Ingresa el Precio mayoreo">
               </div>
-              <!-- /.form-group -->
-            </div>
-            <!-- /.col -->
-            <!-- /.col -->
-            <div class="col-md-4">              
-              <!-- /.form-group -->
-              <div class="form-group">
-                  <label for="exampleInputEmail1">Existencia minima</label>
-                  <input type="text" class="form-control" id="cant_minima" name="cant_minima" readonly placeholder="Ingresa la Cantidad minima">
-              </div>
-              <div class="form-group">
-                  <label for="exampleInputEmail1">Existencia maxima</label>
-                  <input type="text" class="form-control" id="existencia_actual" name="existencia_actual"  readonly>
-              </div>
-              
               <!-- /.form-group -->
             </div>
             <!-- /.col -->
@@ -95,8 +80,8 @@
             </div>
             <br>
             <div class="box-footer">
-              <a href="exportarExcel_productos.php" target="_blank"> <button type="button" class="btn btn-primary"> Exportar a Excel</button> </a>
-              <a href="exportarPdf_productos.php" target="_blank"><button type="button" class="btn btn-success">Exportar a PDF</button> </a>
+              <a href="/productos/descargarExcel/" target="_blank"> <button type="button" class="btn btn-primary"> Exportar a Excel</button> </a>
+              <a href="/productos/descargarPDF/" target="_blank"><button type="button" class="btn btn-success">Exportar a PDF</button> </a>
             </div>
             <br>
             <!-- /.box-header -->
@@ -158,10 +143,10 @@
         <form id="form-editar">
           <div class="modal-body">
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 {!! csrf_field() !!}
                 <div class="form-group">
-                  <input type="text" value="" class="form-control" name="id" id="id" >
+                  <input type="hidden" value="" class="form-control" name="id" id="id" >
                     <label for="exampleInputEmail1">Codigo de Producto</label>
                     <input type="text" class="form-control" id="codigo_barras-e" name="codigo_barras-e" placeholder="Ingresa el codigo de producto">
                 </div>
@@ -173,22 +158,21 @@
                 <div class="form-group">
                   <label>Unidad de medida</label>
                   <select class="form-control select2"  style="width: 100%;" id="unidad_medida-e" name="unidad_medida-e">
-                    <option selected="selected">Rollo</option>
-                    <option>Pieza</option>
-                    <option>Litros</option>
-                    <option>Metros</option>
-                    <option>Par</option>
-                    <option>Rollo</option>
-                    <option>Set</option>
-                    <option>Kilos</option>
-                    <option>Multiusos</option>
-
+                    <option value="Pieza">Pieza</option>
+                    <option value="Rollo">Rollo</option>
+                    <option value="Litros">Litros</option>
+                    <option value="Metros">Metros</option>
+                    <option value="Par">Par</option>
+                    <option value="Rollo">Rollo</option>
+                    <option value="Set">Set</option>
+                    <option value="Kilos">Kilos</option>
+                    <option value="Multiusos">Multiusos</option>
                   </select>
                 </div>
                 <!-- /.form-group -->
               </div>
               <!-- /.col -->
-              <div class="col-md-4">              
+              <div class="col-md-6">              
                 <!-- /.form-group -->
                 <div class="form-group">
                     <label for="exampleInputEmail1">Precio costo</label>
@@ -210,18 +194,7 @@
               </div>
               <!-- /.col -->
               <!-- /.col -->
-              <div class="col-md-4">              
-                <!-- /.form-group -->
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Existencia minima</label>
-                    <input type="text" class="form-control" id="cant_minima-e" name="cant_minima-e" readonly placeholder="Ingresa la Cantidad minima">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Existencia maxima</label>
-                    <input type="text" class="form-control" id="existencia_actual-e" name="existencia_actual-e"  readonly>
-                </div>              
-                <!-- /.form-group -->
-              </div>
+
               <!-- /.col -->
             </div>
           </div>
@@ -283,7 +256,7 @@
         success: function (data) { 
           $("#codigo_barras-e").val(data.codigo_barras);
           $("#nombre_producto-e").val(data.nombre_producto);
-          $("#unidad_medida-e").val(data.unidad_medida);
+          $("#unidad_medida-e option[value="+data.unidad_medida+"]").attr("selected", true);
           $("#precio_costo-e").val(data.precio_costo);
           $("#precio_venta-e").val(data.precio_venta);
           $("#precio_mayoreo-e").val(data.precio_mayoreo);
