@@ -23,3 +23,5 @@ Route::get('productos/descargarExcel', 'ProductoController@descargarExcel')->nam
 Route::post('productos/edicion', 'ProductoController@edicion')->name('edicion');
 Route::resource('productos', 'ProductoController');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('entradasproductos', 'EntradaproductoController');
+Route::resource('entradas', 'EntradaController');
