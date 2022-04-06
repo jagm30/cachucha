@@ -30,3 +30,5 @@ Route::get('entradas/reportepdffecha/{fecha1}/{fecha2}', 'EntradaController@repo
 Route::get('entradas/reportepdf/{id}', 'EntradaController@reportepdf');
 Route::get('entradas/reporte/', 'EntradaController@reporte');
 Route::resource('entradas', 'EntradaController');
+Route::get('exportinventario', 'InventarioController@export')->name('exportinventario');
+Route::resource('inventarios', 'InventarioController');

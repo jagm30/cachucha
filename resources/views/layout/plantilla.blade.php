@@ -126,6 +126,14 @@
                 </span>
             </a>
             </li>
+            <li>
+            <a href="/inventarios">
+                <i class="fa fa-th"></i> <span>Inventario</span>
+                <span class="pull-right-container">
+                <small class="label pull-right bg-green">Nuevo</small>
+                </span>
+            </a>
+            </li>
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-table"></i> <span>Entradas</span>

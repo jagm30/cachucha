@@ -60,6 +60,21 @@
       </div>
     </div>
     <!-- ./col -->
+
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-green">
+        <div class="inner">
+          <h3>Inventario<sup style="font-size: 20px"></sup></h3>
+
+          <p>Consulta stock</p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-stats-bars"></i>
+        </div>
+        <a href="/inventarios" class="small-box-footer">más información <i class="fa fa-arrow-circle-right"></i></a>
+      </div>
+    </div>
   </div>
   <!-- /.row -->
   <!-- Main row -->
